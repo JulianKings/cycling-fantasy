@@ -9,7 +9,6 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
-import { MatPasswordStrengthModule } from '@angular-material-extensions/password-strength';
 import LocalStorageManager from '../../util/localStorageManager';
 import { Router } from '@angular/router';
 import { UserInterface } from '../../interfaces/user';
@@ -22,7 +21,7 @@ import { login } from '../../store/auth/auth.actions';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [MatFormFieldModule, MatInputModule, MatIconModule, MatButtonModule, ReactiveFormsModule, FormsModule, MatPasswordStrengthModule],
+  imports: [MatFormFieldModule, MatInputModule, MatIconModule, MatButtonModule, ReactiveFormsModule, FormsModule],
   templateUrl: './login.component.html',
   styleUrl: '../../styles/login.component.scss'
 })

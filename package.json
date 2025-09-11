@@ -10,7 +10,6 @@
   },
   "private": true,
   "dependencies": {
-    "@angular-material-extensions/password-strength": "^16.0.0",
     "@angular/animations": "^18.2.0",
     "@angular/cdk": "^18.2.12",
     "@angular/common": "^18.2.0",
@@ -25,13 +24,16 @@
     "@ng-icons/heroicons": "^29.9.0",
     "@ng-icons/material-icons": "^29.9.0",
     "@ngrx/store": "^18.1.1",
+    "@zxcvbn-ts/core": "^3.0.0",
+    "@zxcvbn-ts/language-en": "^3.0.0",
+    "angular-password-strength-meter": "^12.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.10"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^18.2.11",
-    "@angular/cli": "^18.2.11",
+    "@angular/cli": "^19.2.15",
     "@angular/compiler-cli": "^18.2.0",
     "@types/jasmine": "~5.1.0",
     "jasmine-core": "~5.2.0",

@@ -6,84 +6,85 @@
   <section class="register">
       <h1>Registro</h1>
 
-      <form (submit)="onSubmit()">
+      <form [formGroup]="signUpForm" (submit)="onSubmit()">
         <mat-form-field appearance="outline">
           <mat-label>Nombre de usuario</mat-label>
-          <input type="text" name="username" matInput [formControl]="usernameFormControl" [errorStateMatcher]="matcher"
+          <input type="text" name="username" matInput formControlName="username"
                 placeholder="Ej. Jhon Doe">
-          @if (usernameFormControl.hasError('required')) {
+          @if (form.username.hasError('required')) {
             <mat-error>Se <strong>requiere</strong> un nombre de usuario</mat-error>
           }
-          @if (usernameFormControl.hasError('usernameExists')) {
+          @if (form.username.hasError('usernameExists')) {
             <mat-error>El nombre de usuario ya existe</mat-error>
           }
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label>Email</mat-label>
-          <input type="email" name="email" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher"
+          <input type="email" name="email" matInput formControlName="email"
                 placeholder="Ej. correo@ejemplo.com">
-          @if (emailFormControl.hasError('email') && !emailFormControl.hasError('required')) {
+          @if (form.email.hasError('email') && !form.email.hasError('required')) {
             <mat-error>Introduce un email válido</mat-error>
           }
-          @if (emailFormControl.hasError('required')) {
+          @if (form.email.hasError('required')) {
             <mat-error>Se <strong>requiere</strong> un email</mat-error>
           }
-          @if (emailFormControl.hasError('emailExists')) {
+          @if (form.email.hasError('emailExists')) {
             <mat-error>El email ya existe</mat-error>
           }
         </mat-form-field>
 
-        <mat-form-field appearance="outline">
+        <mat-form-field appearance="outline" class="register_password-field">
           <mat-label>Contraseña</mat-label>
           <mat-pass-toggle-visibility #toggle matSuffix></mat-pass-toggle-visibility>
           <input
             matInput
             #password name="password"
-            [type]="toggle.type"
+            type="password"
             required
-            [formControl]="passwordValidator.passwordFormControl"
+            formControlName="password"
             placeholder="Contraseña"
+            maxlength="25"
           />
           <mat-hint align="end" aria-live="polite">
             {{password.value.length}} / 25
           </mat-hint>
+
           <mat-error
-            *ngIf="passwordValidator.passwordFormControl.hasError('required')"
+            *ngIf="form.password.hasError('required')"
           >
             Se <strong>requiere</strong> una contraseña
           </mat-error>
           <mat-error
-            *ngIf="passwordValidator.passwordFormControl.hasError('pattern')"
+            *ngIf="form.password.hasError('passwordHasEnoughStrength')"
           >
             Contraseña no válida
           </mat-error>
+
+          <section class="register_strength-meter">
+            <password-strength-meter [password]="obtainPassword" (strengthChange)="onPasswordStrengthChange($event)" />
+          </section>
+
         </mat-form-field>
-        <mat-password-strength style="width: 100%"
-          #passwordValidator
-          class="green"
-          (onStrengthChanged)="onStrengthChanged($event)"
-          [password]="password.value"
-        >
-        </mat-password-strength>
-        <!--Password's strength info-->
-        <mat-password-strength-info *ngIf="!safePassword"
-          [passwordComponent]="passwordValidator"
-          lowerCaseCriteriaMsg="contiene al menos una minúscula"
-          upperCaseCriteriaMsg="contiene al menos una mayúscula"
-          digitsCriteriaMsg="contiene al menos un dígito"
-          specialCharsCriteriaMsg="contiene al menos un carácter especial"
-          minCharsCriteriaMsg="debe tener al menos 8 caracteres"
-        >
-        </mat-password-strength-info>
+
+        <section class="register_password-helper" *ngIf="form.password.hasError('passwordHasEnoughStrength')">
+          <span>Una contraseña válida debe contener una longitud de 8 caracteres al menos tres de las siguientes características:</span>
+          <ul>
+            <li>Mayúsculas</li>
+            <li>Minúsculas</li>
+            <li>Números</li>
+            <li>Caracteres especiales</li>
+          </ul>
+        </section>
+
 
           <mat-form-field appearance="outline">
               <mat-label>Confirmar contraseña</mat-label>
-              <input matInput type="password" placeholder="Confirm Password" [formControl]="confirmPasswordFormControl" name="confirmPassword">
-              @if (confirmPasswordFormControl.hasError('matchPassword') && !confirmPasswordFormControl.hasError('required')) {
+              <input matInput type="password" placeholder="Confirm Password" formControlName="confirmPassword" name="confirmPassword">
+              @if (form.confirmPassword) {
                 <mat-error>Las contraseñas no coinciden</mat-error>
               }
-              @if (confirmPasswordFormControl.hasError('required')) {
+              @if (form.confirmPassword.hasError('required')) {
                 <mat-error>Se <strong>requiere</strong> confirmar contraseña</mat-error>
               }
           </mat-form-field>

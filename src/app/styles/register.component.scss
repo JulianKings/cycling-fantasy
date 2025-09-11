@@ -56,6 +56,30 @@
     }
 }
 
+.register_strength-meter {
+  width: 95%;
+  height: 1.5rem;
+  position: absolute;
+  top: 4.65rem;
+}
+
+.register_password-field {
+  padding-bottom: 0.9rem;
+  position: relative;
+}
+
+.register_password-helper {
+  background-color: white;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  animation: slide-in 1.8s ease-in-out;
+  padding: 0.75rem;
+
+  & ul {
+    padding-left: 2rem;
+  }
+}
+
 :host ::ng-deep mat-card-content {
   width: 100% !important;
   display: grid !important;
@@ -65,4 +89,15 @@
 
 :host ::ng-deep div.mat-mdc-text-field-wrapper {
   background-color: white !important;
+}
+
+@keyframes slide-in {
+  0% {
+    max-height: 0rem;
+    opacity: 0.1;
+  }
+  100% {
+    max-height: 100rem;
+    opacity: 1;
+  }
 }
